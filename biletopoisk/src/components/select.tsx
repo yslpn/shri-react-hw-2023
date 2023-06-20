@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 type Option = {
   value: string;
@@ -22,22 +22,14 @@ export const Select: React.FC<ControlledSelectProps> = ({
   value,
   onChange,
 }) => {
-  const [selectedValue, setSelectedValue] = useState(value);
-
-  useEffect(() => {
-    setSelectedValue(value);
-  }, [value]);
-
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = event.target.value;
-    setSelectedValue(selectedValue);
     onChange(event);
   };
 
   return (
     <label className="flex flex-col">
       {label}
-      <select name={name} value={selectedValue} onChange={handleSelectChange}>
+      <select className="mt-1 mb-4 py-2 px-4 rounded-lg border" name={name} value={value} onChange={handleSelectChange}>
         <option value={""}>{emptyLabel}</option>
         {options.map((option) => {
           return (

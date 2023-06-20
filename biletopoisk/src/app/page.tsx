@@ -1,9 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Select } from "@/components/select";
-import { getCinemasRequest, getMoviesRequest } from "@/lib/api";
 import { useQuery } from "@tanstack/react-query";
+
+import { getCinemasRequest, getMoviesRequest } from "@/lib/api";
+import { genresMap } from "@/lib/constants";
+
+import { TextInput } from "@/components/TextInput";
+import { Select } from "@/components/select";
 import { MovieItem } from "@/components/movieItem";
 
 export default function Home() {
@@ -33,52 +37,59 @@ export default function Home() {
     queryFn: getCinemasRequest,
   });
 
+  if (movies.isLoading || cinemas.isLoading) {
+    return <div className="text-3xl">Загрузка...</div>;
+  }
+
   const genresUnique = [...new Set(movies.data?.map((movie) => movie.genre))];
   const genresOptions = genresUnique.map((genre) => {
-    return { value: genre, label: genre };
+    return { value: genre, label: genresMap[genre] };
   });
 
   const cinemasOptions = (cinemas.data || []).map((cinema) => {
     return { value: cinema.id, label: cinema.name };
   });
 
-  const filteredMovies = movies.data?.filter((movie) => {
-    if (filter.cinema && cinemas.data) {
-      console.log(cinemas.data);
+  const filteredMovies = movies.data
+    ?.filter((movie) => {
+      if (filter.cinema && cinemas.data) {
+        const currentCinema = cinemas.data.find((cinema) => {
+          return filter.cinema === cinema.id;
+        });
 
-      const currentCinema = cinemas.data.find((cinema) => {
-        return filter.cinema === cinema.id;
-      });
+        return currentCinema?.movieIds.includes(movie.id);
+      }
 
-      return currentCinema?.movieIds.includes(movie.id);
-    }
+      return true;
+    })
+    .filter((movie) => {
+      if (filter.genre) {
+        return filter.genre === movie.genre;
+      }
 
-    if (filter.genre && cinemas.data) {
-      return filter.genre === movie.genre;
-    }
+      return true;
+    })
+    .filter((movie) => {
+      if (filter.name) {
+        return movie.title.toLowerCase().includes(filter.name.toLowerCase());
+      }
 
-    if (filter.name && cinemas.data) {
-      return movie.title.toLowerCase().includes(filter.name.toLowerCase());
-    }
-
-    return true;
-  });
+      return true;
+    });
 
   return (
     <div className="flex gap-6">
       <div className="flex flex-col w-96 p-6 bg-white rounded-lg">
         <h1 className="font-bold">Фильтр поиска</h1>
         <div className="flex flex-col mt-5">
-          <label className="flex flex-col">
-            Название
-            <input
-              name="name"
-              className="mt-1"
-              type="text"
-              placeholder="Введите название"
-              onChange={handleFilterChange}
-            />
-          </label>
+          <TextInput
+            name={"name"}
+            label={"Название"}
+            emptyLabel={"Введите название"}
+            value={filter.name}
+            type="search"
+            onChange={handleFilterChange}
+          />
 
           <Select
             name="genre"
@@ -107,7 +118,7 @@ export default function Home() {
               id={id}
               title={title}
               posterUrl={posterUrl}
-              genre={genre}
+              genre={genresMap[genre]}
             />
           );
         })}
