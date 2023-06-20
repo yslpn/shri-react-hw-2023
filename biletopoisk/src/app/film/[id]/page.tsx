@@ -5,9 +5,7 @@ export default function Page({ params }: { params: { id: string } }) {
         <section className="flex w-100 w-full bg-white rounded-lg p-6">
           <img className="w-96 rounded-lg" src="" alt="постер" />
           <div className="flex flex-col flex-1">
-            <h1 className="text-3xl mb-2">
-              Властелин колец: Братство кольца
-            </h1>
+            <h1 className="text-3xl mb-2">Властелин колец: Братство кольца</h1>
             <p className="mb-4">
               <span className="font-bold">Жанр:</span> Фэнтези
             </p>
