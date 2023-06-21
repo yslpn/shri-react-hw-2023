@@ -5,7 +5,7 @@ import { useStore } from "@/lib/store";
 export const Counter = () => {
   const cartItems = useStore((state) => state.cartItems);
 
-  if(!cartItems.length) {
+  if (!cartItems.length) {
     return null;
   }
 
