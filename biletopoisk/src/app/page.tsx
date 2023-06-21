@@ -31,15 +31,14 @@ export default function Home() {
     });
   };
 
-  const movies = useQuery({ queryKey: ["movies"], queryFn: getMoviesRequest });
+  const movies = useQuery({
+    queryKey: [filter.cinema, "movies"],
+    queryFn: getMoviesRequest,
+  });
   const cinemas = useQuery({
     queryKey: ["cinemas"],
     queryFn: getCinemasRequest,
   });
-
-  // if (movies.isLoading || cinemas.isLoading) {
-  //   return <div className="text-3xl">Загрузка...</div>;
-  // }
 
   const genresUnique = [...new Set(movies.data?.map((movie) => movie.genre))];
   const genresOptions = genresUnique.map((genre) => {
@@ -52,17 +51,6 @@ export default function Home() {
 
   const filteredMovies = movies.data
     ?.filter((movie) => {
-      if (filter.cinema && cinemas.data) {
-        const currentCinema = cinemas.data.find((cinema) => {
-          return filter.cinema === cinema.id;
-        });
-
-        return currentCinema?.movieIds.includes(movie.id);
-      }
-
-      return true;
-    })
-    .filter((movie) => {
       if (filter.genre) {
         return filter.genre === movie.genre;
       }

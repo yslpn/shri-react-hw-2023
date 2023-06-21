@@ -11,8 +11,8 @@ import { FilmToCartButtons } from "@/components/FilmToCartButtons";
 export default function Page({ params }: { params: { id: string } }) {
   const filmId = params.id;
 
-  const movie = useQuery(["movie", filmId], getMovieRequest);
-  const comments = useQuery(["comments", filmId], getCommentsForMovie);
+  const movie = useQuery([filmId, "movie"], getMovieRequest);
+  const comments = useQuery([filmId, "comments"], getCommentsForMovie);
 
   return (
     <div className="flex flex-col gap-6">

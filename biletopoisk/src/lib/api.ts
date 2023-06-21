@@ -28,7 +28,7 @@ interface IComment {
 export async function getCommentsForMovie({
   queryKey,
 }: QueryFunctionContext<string[]>): Promise<IComment[]> {
-  const [_, id] = queryKey;
+  const [id] = queryKey;
   const res = await fetch(`http://localhost:3001/api/reviews?movieId=${id}`);
 
   if (!res.ok) {
@@ -41,7 +41,7 @@ export async function getCommentsForMovie({
 export async function getMovieRequest({
   queryKey,
 }: QueryFunctionContext<string[]>): Promise<IMovie> {
-  const [_, id] = queryKey;
+  const [id] = queryKey;
   const res = await fetch(`http://localhost:3001/api/movie?movieId=${id}`);
 
   if (!res.ok) {
@@ -51,8 +51,16 @@ export async function getMovieRequest({
   return res.json();
 }
 
-export async function getMoviesRequest(): Promise<IMovie[]> {
-  const res = await fetch("http://localhost:3001/api/movies");
+export async function getMoviesRequest({
+  queryKey,
+}: QueryFunctionContext<string[]>): Promise<IMovie[]> {
+  const [cinema] = queryKey;
+
+  const res = await fetch(
+    cinema
+      ? `http://localhost:3001/api/movies?cinemaId=${cinema}`
+      : "http://localhost:3001/api/movies"
+  );
 
   if (!res.ok) {
     throw new Error("Failed to fetch movies");
