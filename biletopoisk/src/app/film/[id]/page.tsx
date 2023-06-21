@@ -25,6 +25,7 @@ export default function Page({ params }: { params: { id: string } }) {
                 alt="постер"
                 height={500}
                 width={400}
+                priority={true}
               />
               <div className="flex flex-col flex-1">
                 <h1 className="text-3xl mb-2">{movie.data.title}</h1>

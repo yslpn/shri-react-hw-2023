@@ -18,7 +18,7 @@ export const Comment = ({
         width={100}
         height={100}
       />
-      <div className="flex flex-col">
+      <div className="flex flex-col flex-1">
         <div className="flex justify-between mb-4">
           <h3 className="font-bold">{name}</h3>
           <div>

@@ -16,11 +16,11 @@ export const MovieItem = ({
     <article className="flex items-start gap-6 w-100 w-full bg-white rounded-lg p-6">
       <Link href={`/film/${id}`}>
         <Image
-          className="rounded-lg object-cover"
+          className="rounded-lg object-cover h-32"
           src={posterUrl}
           alt={`Постер фильма ${{ title }}`}
           width={100}
-          height={120}
+          height={128}
         />
       </Link>
 
