@@ -24,9 +24,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru">
-      <body className={`${roboto.className} flex flex-col h-screen`}>
+      <body className={`${roboto.className} flex flex-col min-h-screen`}>
         <Providers>
-          <nav className="flex justify-between items-center pl-8 pr-8 min-h-[5rem] bg-gray-dark text-white">
+          <nav className="flex justify-between items-center pl-8 pr-8 min-h-[5rem] bg-gray-dark text-white sticky top-0">
             <Link href="/" className="font font-bold text-3xl">
               Билетопоиск
             </Link>

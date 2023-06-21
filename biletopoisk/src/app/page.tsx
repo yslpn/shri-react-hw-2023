@@ -80,34 +80,36 @@ export default function Home() {
   return (
     <div className="flex gap-6">
       <div className="flex flex-col w-96 p-6 bg-white rounded-lg">
-        <h1 className="font-bold">Фильтр поиска</h1>
-        <div className="flex flex-col mt-5">
-          <TextInput
-            name={"name"}
-            label={"Название"}
-            emptyLabel={"Введите название"}
-            value={filter.name}
-            type="search"
-            onChange={handleFilterChange}
-          />
+        <div className="sticky top-32">
+          <h1 className="font-bold">Фильтр поиска</h1>
+          <div className="flex flex-col mt-5 relative">
+            <TextInput
+              name={"name"}
+              label={"Название"}
+              emptyLabel={"Введите название"}
+              value={filter.name}
+              type="search"
+              onChange={handleFilterChange}
+            />
 
-          <Select
-            name="genre"
-            label="Жанр"
-            emptyLabel="Выберите жанр"
-            options={genresOptions}
-            onChange={handleFilterChange}
-            value={filter.genre}
-          />
+            <Select
+              name="genre"
+              label="Жанр"
+              emptyLabel="Выберите жанр"
+              options={genresOptions}
+              onChange={handleFilterChange}
+              value={filter.genre}
+            />
 
-          <Select
-            name="cinema"
-            label="Кинотеатр"
-            emptyLabel="Выберите кинотеатр"
-            options={cinemasOptions}
-            onChange={handleFilterChange}
-            value={filter.cinema}
-          />
+            <Select
+              name="cinema"
+              label="Кинотеатр"
+              emptyLabel="Выберите кинотеатр"
+              options={cinemasOptions}
+              onChange={handleFilterChange}
+              value={filter.cinema}
+            />
+          </div>
         </div>
       </div>
       <div className="flex flex-1 flex-col gap-4">
