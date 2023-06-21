@@ -1,6 +1,7 @@
 import { Roboto } from "next/font/google";
 import Link from "next/link";
 
+import { Counter } from "@/components/Counter";
 import { Providers } from "./providers";
 
 import "./globals.css";
@@ -27,13 +28,14 @@ export default function RootLayout({
       <body className={`${roboto.className} flex flex-col min-h-screen`}>
         <Providers>
           <nav className="flex justify-between items-center pl-8 pr-8 min-h-[5rem] bg-gray-dark text-white sticky top-0">
-            <Link href="/" className="font font-bold text-3xl transition hover:text-orange">
+            <Link
+              href="/"
+              className="font font-bold text-3xl transition hover:text-orange"
+            >
               Билетопоиск
             </Link>
             <Link className="flex items-center gap-2" href="/cart">
-              <span className="flex justify-center items-center bg-orange w-7 h-7 rounded-lg">
-                30
-              </span>
+              <Counter />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="32"
@@ -51,8 +53,12 @@ export default function RootLayout({
             {children}
           </main>
           <footer className="flex justify-between items-center pl-8 pr-8 min-h-[5rem] bg-gray-dark text-white">
-            <Link className="transition hover:text-orange" href="/faq">Вопросы-ответы</Link>
-            <Link className="transition hover:text-orange" href="/about">О нас</Link>
+            <Link className="transition hover:text-orange" href="/faq">
+              Вопросы-ответы
+            </Link>
+            <Link className="transition hover:text-orange" href="/about">
+              О нас
+            </Link>
           </footer>
         </Providers>
       </body>

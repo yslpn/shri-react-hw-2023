@@ -1,24 +1,23 @@
+import { IMovie } from "@/lib/api";
+import { genresMap } from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
+import { FilmToCartButtons } from "./FilmToCartButtons";
 
 export const MovieItem = ({
-  id,
-  title,
-  posterUrl,
-  genre,
+  movie,
+  deleteAllButton,
 }: {
-  id: string;
-  title: string;
-  posterUrl: string;
-  genre: string;
+  movie: IMovie;
+  deleteAllButton?: boolean;
 }) => {
   return (
     <article className="flex items-start gap-6 w-100 w-full bg-white rounded-lg p-6">
-      <Link href={`/film/${id}`}>
+      <Link href={`/film/${movie.id}`}>
         <Image
           className="rounded-lg object-cover h-32"
-          src={posterUrl}
-          alt={`Постер фильма ${{ title }}`}
+          src={movie.posterUrl}
+          alt={`Постер фильма ${movie.title}`}
           width={100}
           height={128}
         />
@@ -26,20 +25,17 @@ export const MovieItem = ({
 
       <div className="flex flex-col flex-1">
         <h2 className="font-bold">
-          <Link className="transition hover:text-orange" href={`/film/${id}`}>
-            {title}
+          <Link
+            className="transition hover:text-orange"
+            href={`/film/${movie.id}`}
+          >
+            {movie.title}
           </Link>
         </h2>
-        <p className="italic">{genre}</p>
+        <p className="italic">{genresMap[movie.genre]}</p>
       </div>
       <div className="ml-auto flex items-center gap-2">
-        <button className="flex items-center justify-center text-white rounded-lg bg-orange w-5 h-5">
-          -
-        </button>
-        <p>0</p>
-        <button className="flex items-center justify-center text-white rounded-lg bg-orange w-5 h-5">
-          +
-        </button>
+        <FilmToCartButtons movie={movie} deleteAllButton={deleteAllButton} />
       </div>
     </article>
   );

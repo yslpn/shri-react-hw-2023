@@ -113,14 +113,11 @@ export default function Home() {
         </div>
       </div>
       <div className="flex flex-1 flex-col gap-4">
-        {filteredMovies?.map(({ id, title, posterUrl, genre }) => {
+        {filteredMovies?.map((movie) => {
           return (
             <MovieItem
-              key={id}
-              id={id}
-              title={title}
-              posterUrl={posterUrl}
-              genre={genresMap[genre]}
+              key={movie.id}
+              movie={movie}
             />
           );
         })}

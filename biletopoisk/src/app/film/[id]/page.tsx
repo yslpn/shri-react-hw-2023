@@ -6,12 +6,17 @@ import { getCommentsForMovie, getMovieRequest } from "@/lib/api";
 import { genresMap } from "@/lib/constants";
 
 import { Comment } from "@/components/Comment";
+import { FilmToCartButtons } from "@/components/FilmToCartButtons";
 
 export default function Page({ params }: { params: { id: string } }) {
   const filmId = params.id;
 
   const movie = useQuery(["movie", filmId], getMovieRequest);
   const comments = useQuery(["comments", filmId], getCommentsForMovie);
+
+  if (movie.isLoading || comments.isLoading) {
+    return <div className="text-3xl">Загрузка...</div>;
+  }
 
   return (
     <div className="flex flex-col gap-6">
@@ -51,28 +56,20 @@ export default function Page({ params }: { params: { id: string } }) {
                 </p>
               </div>
               <div className="ml-auto flex items-center gap-2">
-                <button className="flex items-center justify-center text-white rounded-lg bg-orange w-5 h-5">
-                  -
-                </button>
-                <p>0</p>
-                <button className="flex items-center justify-center text-white rounded-lg bg-orange w-5 h-5">
-                  +
-                </button>
+                <FilmToCartButtons movie={movie.data} />
               </div>
             </>
-          ) : (
-            <div className="text-3xl">Загрузка...</div>
-          )}
+          ) : null}
         </section>
       </div>
       <div className="flex flex-col gap-6">
-        {comments.isSuccess ? (
-          comments.data?.map(({ id, name, text, rating }) => {
-            return <Comment key={id} name={name} text={text} rating={rating} />;
-          })
-        ) : (
-          <div className="text-3xl">Загрузка...</div>
-        )}
+        {comments.isSuccess
+          ? comments.data?.map(({ id, name, text, rating }) => {
+              return (
+                <Comment key={id} name={name} text={text} rating={rating} />
+              );
+            })
+          : null}
       </div>
     </div>
   );

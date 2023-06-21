@@ -1,6 +1,6 @@
 import { QueryFunctionContext } from "@tanstack/react-query";
 
-interface IMovie {
+export interface IMovie {
   title: string;
   posterUrl: string;
   releaseYear: number;
