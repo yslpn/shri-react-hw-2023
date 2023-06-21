@@ -26,7 +26,7 @@ export const TextInput: React.FC<ControlledSelectProps> = ({
       {label}
       <input
         name={name}
-        className="mt-1 mb-4 py-2 px-4 rounded-lg border-gray-lighter border"
+        className="mt-1 mb-4 py-2 px-4 rounded-lg border-gray-lighter border transition hover:border-orange"
         type={type}
         placeholder={emptyLabel}
         value={value}

@@ -63,7 +63,7 @@ export const Select = ({
     <div className="relative" ref={ref} onBlur={handleBlur}>
       <label className="flex flex-col">{label}</label>
       <button
-        className="flex justify-between items-center w-full mt-1 mb-4 py-2 px-4 rounded-lg border border-gray-lighter cursor-pointer"
+        className="flex justify-between items-center w-full mt-1 mb-4 py-2 px-4 rounded-lg border border-gray-lighter cursor-pointer transition hover:border-orange"
         onClick={toggleDropdown}
       >
         {currentOption?.label || (
