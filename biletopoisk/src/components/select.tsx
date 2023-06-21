@@ -53,14 +53,22 @@ export const Select = ({
     };
   }, [ref]);
 
+  const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
+    if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+      setIsOpen(false);
+    }
+  };
+
   return (
-    <div className="relative" ref={ref}>
+    <div className="relative" ref={ref} onBlur={handleBlur}>
       <label className="flex flex-col">{label}</label>
-      <div
-        className="flex justify-between items-center mt-1 mb-4 py-2 px-4 rounded-lg border border-gray-lighter cursor-pointer"
+      <button
+        className="flex justify-between items-center w-full mt-1 mb-4 py-2 px-4 rounded-lg border border-gray-lighter cursor-pointer"
         onClick={toggleDropdown}
       >
-        {currentOption?.label || <span className="text-gray-light" >{emptyLabel}</span>}
+        {currentOption?.label || (
+          <span className="text-gray-light">{emptyLabel}</span>
+        )}
         <svg
           className={`transition ${isOpen ? "rotate-180" : ""}`}
           xmlns="http://www.w3.org/2000/svg"
@@ -75,24 +83,24 @@ export const Select = ({
             clipRule="evenodd"
           />
         </svg>
-      </div>
+      </button>
       {isOpen && (
-        <div className="absolute w-full drop-shadow-md rounded-lg bg-white z-10 overflow-hidden">
-          <div
-            className="py-2 px-4 cursor-pointer hover:bg-gray-200 hover:outline-gray-lighter hover:outline "
+        <div className="absolute w-full drop-shadow-md rounded-lg bg-white z-10">
+          <button
+            className="flex w-full py-2 px-4 cursor-pointer hover:bg-gray-200 transition hover:text-orange"
             onClick={() => handleSelectChange("")}
           >
             Не выбрано
-          </div>
+          </button>
           {options.map((option) => {
             return (
-              <div
+              <button
                 key={option.value}
-                className="py-2 px-4 cursor-pointer hover:bg-gray-200 hover:outline-gray-lighter hover:outline "
+                className="flex w-full py-2 px-4 cursor-pointer hover:bg-gray-200 transition hover:text-orange"
                 onClick={() => handleSelectChange(option.value)}
               >
                 {option.label}
-              </div>
+              </button>
             );
           })}
         </div>
