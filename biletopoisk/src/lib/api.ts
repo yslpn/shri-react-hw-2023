@@ -1,4 +1,5 @@
 import { QueryFunctionContext } from "@tanstack/react-query";
+import { backendDomain } from "./constants";
 
 export interface IMovie {
   title: string;
@@ -29,7 +30,7 @@ export async function getCommentsForMovie({
   queryKey,
 }: QueryFunctionContext<string[]>): Promise<IComment[]> {
   const [id] = queryKey;
-  const res = await fetch(`http://localhost:3001/api/reviews?movieId=${id}`);
+  const res = await fetch(`${backendDomain}/api/reviews?movieId=${id}`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch comments for movie");
@@ -42,7 +43,7 @@ export async function getMovieRequest({
   queryKey,
 }: QueryFunctionContext<string[]>): Promise<IMovie> {
   const [id] = queryKey;
-  const res = await fetch(`http://localhost:3001/api/movie?movieId=${id}`);
+  const res = await fetch(`${backendDomain}/api/movie?movieId=${id}`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch movie");
@@ -58,8 +59,8 @@ export async function getMoviesRequest({
 
   const res = await fetch(
     cinema
-      ? `http://localhost:3001/api/movies?cinemaId=${cinema}`
-      : "http://localhost:3001/api/movies"
+      ? `${backendDomain}/api/movies?cinemaId=${cinema}`
+      : `${backendDomain}/api/movies`
   );
 
   if (!res.ok) {
@@ -70,7 +71,7 @@ export async function getMoviesRequest({
 }
 
 export async function getCinemasRequest(): Promise<ICinema[]> {
-  const res = await fetch("http://localhost:3001/api/cinemas");
+  const res = await fetch(`${backendDomain}/api/cinemas`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch cinemas");

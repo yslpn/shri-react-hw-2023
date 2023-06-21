@@ -48,12 +48,14 @@ export const Modal = ({ isOpen, onClose, onConfirm }: ModalProps) => {
   }, [isOpen]);
 
   useEffect(() => {
-    dialogRef.current?.addEventListener("close", onClose);
+    const dialog = dialogRef.current;
+
+    dialog?.addEventListener("close", onClose);
 
     return () => {
-      dialogRef.current?.removeEventListener("close", onClose);
+      dialog?.removeEventListener("close", onClose);
     };
-  }, []);
+  }, [onClose]);
 
   return (
     <dialog ref={dialogRef} className="rounded-lg">

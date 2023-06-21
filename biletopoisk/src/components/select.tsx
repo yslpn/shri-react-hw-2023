@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 
 type Option = {
   value: string;
@@ -36,9 +36,18 @@ export const Select = ({
     setIsOpen(false);
   };
 
+  const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
+    if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+      setIsOpen(false);
+    }
+  };
+
   const toggleDropdown = () => setIsOpen(!isOpen);
 
-  const currentOption = options.find((option) => option.value === value);
+  const currentOption = useMemo(
+    () => options.find((option) => option.value === value),
+    [options, value]
+  );
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -52,12 +61,6 @@ export const Select = ({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [ref]);
-
-  const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
-    if (!event.currentTarget.contains(event.relatedTarget as Node)) {
-      setIsOpen(false);
-    }
-  };
 
   return (
     <div className="relative" ref={ref} onBlur={handleBlur}>

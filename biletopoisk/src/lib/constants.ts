@@ -8,3 +8,7 @@ export const genresMap: Genres = {
   comedy: "Комедии",
   action: "Экшен",
 };
+
+export const genres = ["fantasy", "horror", "comedy", "action"];
+
+export const backendDomain = "http://localhost:3001";

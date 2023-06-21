@@ -1,5 +1,7 @@
 "use client";
 
+import { useMemo } from "react";
+
 import { MovieItem } from "@/components/MovieItem";
 import { IMovie } from "@/lib/api";
 import { useStore } from "@/lib/store";
@@ -7,12 +9,15 @@ import { useStore } from "@/lib/store";
 export default function Cart() {
   const cartItems = useStore((state) => state.cartItems);
 
-  const uniqueCartItems = [
-    ...cartItems.reduce((set: Set<IMovie>, item: IMovie) => {
-      set.add(item);
-      return set;
-    }, new Set<IMovie>()),
-  ];
+  const uniqueCartItems = useMemo(
+    () => [
+      ...cartItems.reduce((set: Set<IMovie>, item: IMovie) => {
+        set.add(item);
+        return set;
+      }, new Set<IMovie>()),
+    ],
+    [cartItems]
+  );
 
   return (
     <div className="flex flex-1 flex-col gap-4">

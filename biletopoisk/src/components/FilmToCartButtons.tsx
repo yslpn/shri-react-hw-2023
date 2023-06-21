@@ -1,9 +1,10 @@
 "use client";
 
+import { useMemo, useState } from "react";
+
 import { IMovie } from "@/lib/api";
 import { useStore } from "@/lib/store";
 import { Modal } from "./Modal";
-import { useState } from "react";
 
 export const FilmToCartButtons = ({
   movie,
@@ -12,17 +13,23 @@ export const FilmToCartButtons = ({
   movie: IMovie;
   deleteAllButton?: boolean;
 }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const addItem = useStore((state) => state.addItem);
   const removeItem = useStore((state) => state.removeItem);
   const removeAllById = useStore((state) => state.removeAllById);
   const cartItems = useStore((state) => state.cartItems);
-  const count = cartItems.reduce(
-    (acc, item) => (item.id === movie.id ? acc + 1 : acc),
-    0
+
+  const count = useMemo(
+    () =>
+      cartItems.reduce(
+        (acc, item) => (item.id === movie.id ? acc + 1 : acc),
+        0
+      ),
+    [cartItems, movie.id]
   );
 
   const isShowModalWarning = deleteAllButton && count === 1;
-  const [isOpen, setIsOpen] = useState(false);
 
   const handleRemove = (movie: IMovie) => {
     if (isShowModalWarning) {
