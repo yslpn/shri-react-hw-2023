@@ -14,10 +14,6 @@ export default function Page({ params }: { params: { id: string } }) {
   const movie = useQuery(["movie", filmId], getMovieRequest);
   const comments = useQuery(["comments", filmId], getCommentsForMovie);
 
-  if (movie.isLoading || comments.isLoading) {
-    return <div className="text-3xl">Загрузка...</div>;
-  }
-
   return (
     <div className="flex flex-col gap-6">
       <div className=" bg-white rounded-lg">
@@ -59,17 +55,21 @@ export default function Page({ params }: { params: { id: string } }) {
                 <FilmToCartButtons movie={movie.data} />
               </div>
             </>
-          ) : null}
+          ) : (
+            <div className="text-3xl">Загрузка данных фильма...</div>
+          )}
         </section>
       </div>
       <div className="flex flex-col gap-6">
-        {comments.isSuccess
-          ? comments.data?.map(({ id, name, text, rating }) => {
-              return (
-                <Comment key={id} name={name} text={text} rating={rating} />
-              );
-            })
-          : null}
+        {comments.isSuccess ? (
+          comments.data?.map(({ id, name, text, rating }) => {
+            return <Comment key={id} name={name} text={text} rating={rating} />;
+          })
+        ) : (
+          <div className="flex flex-col p-6 bg-white rounded-lg">
+            <div className="text-3xl">Загрузка комментариев...</div>
+          </div>
+        )}
       </div>
     </div>
   );

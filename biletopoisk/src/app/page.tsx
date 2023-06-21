@@ -37,9 +37,9 @@ export default function Home() {
     queryFn: getCinemasRequest,
   });
 
-  if (movies.isLoading || cinemas.isLoading) {
-    return <div className="text-3xl">Загрузка...</div>;
-  }
+  // if (movies.isLoading || cinemas.isLoading) {
+  //   return <div className="text-3xl">Загрузка...</div>;
+  // }
 
   const genresUnique = [...new Set(movies.data?.map((movie) => movie.genre))];
   const genresOptions = genresUnique.map((genre) => {
@@ -81,46 +81,55 @@ export default function Home() {
     <div className="flex gap-6">
       <div className="flex flex-col w-96 p-6 bg-white rounded-lg">
         <div className="sticky top-32">
-          <h1 className="font-bold">Фильтр поиска</h1>
-          <div className="flex flex-col mt-5 relative">
-            <TextInput
-              name={"name"}
-              label={"Название"}
-              emptyLabel={"Введите название"}
-              value={filter.name}
-              type="search"
-              onChange={handleFilterChange}
-            />
+          {cinemas.isSuccess ? (
+            <>
+              <h1 className="font-bold">Фильтр поиска</h1>
+              <div className="flex flex-col mt-5 relative">
+                <TextInput
+                  name={"name"}
+                  label={"Название"}
+                  emptyLabel={"Введите название"}
+                  value={filter.name}
+                  type="search"
+                  onChange={handleFilterChange}
+                />
 
-            <Select
-              name="genre"
-              label="Жанр"
-              emptyLabel="Выберите жанр"
-              options={genresOptions}
-              onChange={handleFilterChange}
-              value={filter.genre}
-            />
+                <Select
+                  name="genre"
+                  label="Жанр"
+                  emptyLabel="Выберите жанр"
+                  options={genresOptions}
+                  onChange={handleFilterChange}
+                  value={filter.genre}
+                />
 
-            <Select
-              name="cinema"
-              label="Кинотеатр"
-              emptyLabel="Выберите кинотеатр"
-              options={cinemasOptions}
-              onChange={handleFilterChange}
-              value={filter.cinema}
-            />
-          </div>
+                <Select
+                  name="cinema"
+                  label="Кинотеатр"
+                  emptyLabel="Выберите кинотеатр"
+                  options={cinemasOptions}
+                  onChange={handleFilterChange}
+                  value={filter.cinema}
+                />
+              </div>
+            </>
+          ) : (
+            <div className="text-3xl">Загрузка фильтров...</div>
+          )}
         </div>
       </div>
       <div className="flex flex-1 flex-col gap-4">
-        {filteredMovies?.map((movie) => {
-          return (
-            <MovieItem
-              key={movie.id}
-              movie={movie}
-            />
-          );
-        })}
+        {movies.isSuccess ? (
+          <>
+            {filteredMovies?.map((movie) => {
+              return <MovieItem key={movie.id} movie={movie} />;
+            })}
+          </>
+        ) : (
+          <div className="flex flex-col p-6 bg-white rounded-lg">
+            <div className="text-3xl">Загрузка фильмов...</div>
+          </div>
+        )}
       </div>
     </div>
   );
