@@ -25,7 +25,11 @@ export const MovieItem = ({
       </Link>
 
       <div className="flex flex-col flex-1">
-        <h2 className="font-bold">{title}</h2>
+        <h2 className="font-bold">
+          <Link className="transition hover:text-orange" href={`/film/${id}`}>
+            {title}
+          </Link>
+        </h2>
         <p className="italic">{genre}</p>
       </div>
       <div className="ml-auto flex items-center gap-2">
