@@ -6,7 +6,7 @@ type ModalProps = {
   onConfirm: () => void;
 };
 
-const Modal = ({ isOpen, onClose, onConfirm }: ModalProps) => {
+export const Modal = ({ isOpen, onClose, onConfirm }: ModalProps) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   const handleClose = () => {
@@ -92,5 +92,3 @@ const Modal = ({ isOpen, onClose, onConfirm }: ModalProps) => {
     </dialog>
   );
 };
-
-export default Modal;

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 
-const Accordion = ({
+export const Accordion = ({
   title,
   description,
 }: {
@@ -42,5 +42,3 @@ const Accordion = ({
     </details>
   );
 };
-
-export default Accordion;
