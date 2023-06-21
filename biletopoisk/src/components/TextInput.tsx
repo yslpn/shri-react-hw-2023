@@ -31,6 +31,7 @@ export const TextInput: React.FC<ControlledSelectProps> = ({
         placeholder={emptyLabel}
         value={value}
         onChange={handleSelectChange}
+        autoComplete="off"
         
       />
     </label>

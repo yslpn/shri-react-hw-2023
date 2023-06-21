@@ -7,8 +7,8 @@ import { getCinemasRequest, getMoviesRequest } from "@/lib/api";
 import { genresMap } from "@/lib/constants";
 
 import { TextInput } from "@/components/TextInput";
-import { Select } from "@/components/select";
-import { MovieItem } from "@/components/movieItem";
+import { Select } from "@/components/Select";
+import { MovieItem } from "@/components/MovieItem";
 
 export default function Home() {
   const [filter, setFilter] = useState({
