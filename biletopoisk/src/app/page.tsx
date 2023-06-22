@@ -8,7 +8,7 @@ import { genres, genresMap } from "@/lib/constants";
 
 import { TextInput } from "@/components/TextInput";
 import { Select } from "@/components/Select";
-import { MovieItem } from "@/components/MovieItem";
+import { MovieItems } from "@/components/MovieItems";
 
 export default function Home() {
   const [filter, setFilter] = useState({
@@ -125,11 +125,7 @@ export default function Home() {
       </div>
       <div className="flex flex-1 flex-col gap-4">
         {movies.isSuccess ? (
-          <>
-            {filteredMovies?.map((movie) => {
-              return <MovieItem key={movie.id} movie={movie} />;
-            })}
-          </>
+          <MovieItems movies={filteredMovies} />
         ) : (
           <div className="flex flex-col p-6 bg-white rounded-lg">
             <div className="text-3xl">Загрузка фильмов...</div>
