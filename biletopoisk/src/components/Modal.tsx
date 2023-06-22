@@ -61,7 +61,7 @@ export const Modal = ({ isOpen, onClose, onConfirm }: ModalProps) => {
     <dialog ref={dialogRef} className="rounded-lg">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold">Удаление билета</h2>
-        <button onClick={handleClose}>
+        <button onClick={handleClose} aria-label="Закрыть модальное окно">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"

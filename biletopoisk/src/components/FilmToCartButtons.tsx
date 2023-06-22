@@ -45,6 +45,7 @@ export const FilmToCartButtons = ({
         className="flex items-center justify-center text-white rounded-md bg-orange w-5 h-5 disabled:bg-orange-disabled"
         onClick={() => handleRemove(movie)}
         disabled={!count}
+        aria-label="Удалить билет"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -63,6 +64,7 @@ export const FilmToCartButtons = ({
         className="flex items-center justify-center text-white rounded-md bg-orange w-5 h-5 disabled:bg-orange-disabled"
         onClick={() => addItem(movie)}
         disabled={cartItems.length >= 30}
+        aria-label="Добавить билет"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
