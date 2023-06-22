@@ -42,19 +42,39 @@ export const FilmToCartButtons = ({
   return (
     <>
       <button
-        className="flex items-center justify-center text-white rounded-lg bg-orange w-5 h-5 disabled:bg-orange-disabled"
+        className="flex items-center justify-center text-white rounded-md bg-orange w-5 h-5 disabled:bg-orange-disabled"
         onClick={() => handleRemove(movie)}
         disabled={!count}
       >
-        —
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="10"
+          height="2"
+          fill="none"
+        >
+          <path
+            fill="#fff"
+            d="M9.5 1a.375.375 0 0 1-.375.375H.875a.375.375 0 0 1 0-.75h8.25A.375.375 0 0 1 9.5 1Z"
+          />
+        </svg>
       </button>
       <p>{count}</p>
       <button
-        className="flex items-center justify-center text-white rounded-lg bg-orange w-5 h-5 disabled:bg-orange-disabled"
+        className="flex items-center justify-center text-white rounded-md bg-orange w-5 h-5 disabled:bg-orange-disabled"
         onClick={() => addItem(movie)}
         disabled={cartItems.length >= 30}
       >
-        +
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="12"
+          height="12"
+          fill="none"
+        >
+          <path
+            fill="#fff"
+            d="M10.5 6a.375.375 0 0 1-.375.375h-3.75v3.75a.375.375 0 0 1-.75 0v-3.75h-3.75a.375.375 0 1 1 0-.75h3.75v-3.75a.375.375 0 1 1 .75 0v3.75h3.75A.375.375 0 0 1 10.5 6Z"
+          />
+        </svg>
       </button>
 
       {deleteAllButton && (
