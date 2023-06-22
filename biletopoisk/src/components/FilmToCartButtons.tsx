@@ -42,7 +42,7 @@ export const FilmToCartButtons = ({
   return (
     <>
       <button
-        className="flex items-center justify-center text-white rounded-md bg-orange w-5 h-5 disabled:bg-orange-disabled"
+        className="flex items-center justify-center text-white rounded-md bg-orange w-5 h-5 disabled:bg-orange-disabled disabled:hover:brightness-100 hover:brightness-90"
         onClick={() => handleRemove(movie)}
         disabled={!count}
         aria-label="Удалить билет"
@@ -61,7 +61,7 @@ export const FilmToCartButtons = ({
       </button>
       <p>{count}</p>
       <button
-        className="flex items-center justify-center text-white rounded-md bg-orange w-5 h-5 disabled:bg-orange-disabled"
+        className="flex items-center justify-center text-white rounded-md bg-orange w-5 h-5 disabled:bg-orange-disabled disabled:hover:brightness-100 hover:brightness-90 "
         onClick={() => addItem(movie)}
         disabled={cartItems.length >= 30}
         aria-label="Добавить билет"
@@ -83,13 +83,14 @@ export const FilmToCartButtons = ({
         <>
           <button onClick={() => setIsOpen(true)}>
             <svg
+              className="transition hover:text-orange"
               xmlns="http://www.w3.org/2000/svg"
               width="20"
               height="20"
               fill="none"
             >
               <path
-                fill="#333"
+                fill="currentColor"
                 d="M16.067 15.183a.624.624 0 1 1-.884.884L10 10.884l-5.183 5.183a.625.625 0 1 1-.884-.884L9.117 10 3.933 4.817a.625.625 0 1 1 .884-.884L10 9.117l5.183-5.184a.625.625 0 0 1 .884.884L10.884 10l5.183 5.183Z"
               />
             </svg>

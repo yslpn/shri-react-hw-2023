@@ -63,13 +63,14 @@ export const Modal = ({ isOpen, onClose, onConfirm }: ModalProps) => {
         <h2 className="text-xl font-bold">Удаление билета</h2>
         <button onClick={handleClose} aria-label="Закрыть модальное окно">
           <svg
+            className="transition hover:text-orange"
             xmlns="http://www.w3.org/2000/svg"
             width="16"
             height="16"
             fill="none"
           >
             <path
-              fill="#333"
+              fill="currentColor"
               d="M12.854 12.146a.5.5 0 1 1-.708.708L8 8.707l-4.146 4.147a.5.5 0 0 1-.708-.708L7.293 8 3.146 3.854a.5.5 0 1 1 .708-.708L8 7.293l4.146-4.147a.5.5 0 0 1 .708.708L8.707 8l4.147 4.146Z"
             />
           </svg>
@@ -80,13 +81,13 @@ export const Modal = ({ isOpen, onClose, onConfirm }: ModalProps) => {
       <div className="flex gap-2">
         <button
           onClick={handleConfirm}
-          className="px-4 py-2 border-orange border bg-orange text-white rounded-lg"
+          className="px-4 py-2 border-orange border bg-orange text-white rounded-lg hover:brightness-90"
         >
           Да
         </button>
         <button
           onClick={handleClose}
-          className="px-4 py-2 border-orange border bg-white text-black rounded-lg"
+          className="px-4 py-2 border-orange border bg-white text-black rounded-lg hover:brightness-90"
         >
           Нет
         </button>

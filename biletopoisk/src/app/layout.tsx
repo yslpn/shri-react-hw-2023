@@ -34,10 +34,9 @@ export default function RootLayout({
             >
               Билетопоиск
             </Link>
-            <Link className="flex items-center gap-2" href="/cart">
+            <Link className="flex items-center gap-2 hover:brightness-90" href="/cart">
               <Counter />
               <svg
-                className="transition hover:text-orange"
                 xmlns="http://www.w3.org/2000/svg"
                 width="32"
                 height="32"
