@@ -120,7 +120,7 @@ export const Select = ({
         createPortal(
           <div
             ref={optionsWrapperRef}
-            className={`fixed drop-shadow-md rounded-lg bg-white z-10`}
+            className={`fixed mt-1 drop-shadow-md rounded-lg bg-white z-10`}
             style={{
               top: toggleButtonRect?.bottom ?? 0,
               left: toggleButtonRect?.left ?? 0,
