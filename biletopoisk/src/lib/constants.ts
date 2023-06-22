@@ -5,8 +5,8 @@ type Genres = {
 export const genresMap: Genres = {
   fantasy: "Фэнтези",
   horror: "Ужасы",
-  comedy: "Комедии",
-  action: "Экшен",
+  comedy: "Комедия",
+  action: "Боевик",
 };
 
 export const genres = ["fantasy", "horror", "comedy", "action"];
