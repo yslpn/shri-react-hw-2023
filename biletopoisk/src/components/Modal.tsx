@@ -58,7 +58,7 @@ export const Modal = ({ isOpen, onClose, onConfirm }: ModalProps) => {
   }, [onClose]);
 
   return (
-    <dialog ref={dialogRef} className="rounded-lg">
+    <dialog ref={dialogRef} className="rounded-lg backdrop:bg-black-faded">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold">Удаление билета</h2>
         <button onClick={handleClose} aria-label="Закрыть модальное окно">
