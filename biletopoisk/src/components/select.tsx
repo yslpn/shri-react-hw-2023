@@ -65,6 +65,17 @@ export const Select = ({
     }
   }, []);
 
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLButtonElement>) => {
+      if (event.key === "Tab" && !event.shiftKey) {
+        event.preventDefault();
+        toggleButtonRef.current?.focus();
+        setIsOpen(false);
+      }
+    },
+    []
+  );
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
 
@@ -73,12 +84,18 @@ export const Select = ({
     };
   }, [handleClickOutside]);
 
+  useEffect(() => {
+    if (isOpen) {
+      firstButtonRef.current?.focus();
+    }
+  }, [isOpen]);
+
   return (
     <div className="relative" ref={selectWrapperRef}>
       <label className="flex flex-col">{label}</label>
       <button
         className="flex justify-between items-center w-full mt-1 mb-4 py-2 px-4 rounded-lg border border-gray-lighter cursor-pointer transition hover:border-orange"
-        onClick={() => setIsOpen(s => !s)}
+        onClick={() => setIsOpen((s) => !s)}
         ref={toggleButtonRef}
       >
         {currentOption?.label || (
@@ -123,6 +140,11 @@ export const Select = ({
                   key={option.value}
                   className="flex w-full py-2 px-4 cursor-pointer hover:bg-gray-200 transition hover:text-orange"
                   onClick={() => handleSelectChange(option.value)}
+                  onKeyDown={
+                    option === options[options.length - 1]
+                      ? handleKeyDown
+                      : undefined
+                  }
                 >
                   {option.label}
                 </button>
