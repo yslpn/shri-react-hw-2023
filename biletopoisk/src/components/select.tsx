@@ -1,4 +1,11 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { createPortal } from "react-dom";
 
 type Option = {
   value: string;
@@ -23,7 +30,18 @@ export const Select = ({
   onChange,
 }: SelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+
+  const firstButtonRef = useRef<HTMLButtonElement>(null);
+  const selectWrapperRef = useRef<HTMLDivElement>(null);
+  const optionsWrapperRef = useRef<HTMLDivElement>(null);
+  const toggleButtonRef = useRef<HTMLButtonElement>(null);
+
+  const toggleButtonRect = toggleButtonRef.current?.getBoundingClientRect();
+
+  const currentOption = useMemo(
+    () => options.find((option) => option.value === value),
+    [options, value]
+  );
 
   const handleSelectChange = (value: string) => {
     const fakeEvent = {
@@ -36,38 +54,32 @@ export const Select = ({
     setIsOpen(false);
   };
 
-  const handleBlur = (event: React.FocusEvent<HTMLDivElement>) => {
-    if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+  const handleClickOutside = useCallback((event: MouseEvent) => {
+    if (
+      optionsWrapperRef.current &&
+      !optionsWrapperRef.current.contains(event.target as Node) &&
+      selectWrapperRef.current &&
+      !selectWrapperRef.current.contains(event.target as Node)
+    ) {
       setIsOpen(false);
     }
-  };
-
-  const toggleDropdown = () => setIsOpen(!isOpen);
-
-  const currentOption = useMemo(
-    () => options.find((option) => option.value === value),
-    [options, value]
-  );
+  }, []);
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-
     document.addEventListener("mousedown", handleClickOutside);
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [ref]);
+  }, [handleClickOutside]);
 
   return (
-    <div className="relative" ref={ref} onBlur={handleBlur}>
+    <div className="relative" ref={selectWrapperRef}>
       <label className="flex flex-col">{label}</label>
       <button
         className="flex justify-between items-center w-full mt-1 mb-4 py-2 px-4 rounded-lg border border-gray-lighter cursor-pointer transition hover:border-orange"
-        onClick={toggleDropdown}
+        onClick={() => setIsOpen(s => !s)}
+        ref={toggleButtonRef}
       >
         {currentOption?.label || (
           <span className="text-gray-light">{emptyLabel}</span>
@@ -87,27 +99,38 @@ export const Select = ({
           />
         </svg>
       </button>
-      {isOpen && (
-        <div className="absolute w-full drop-shadow-md rounded-lg bg-white z-10">
-          <button
-            className="flex w-full py-2 px-4 cursor-pointer hover:bg-gray-200 transition hover:text-orange"
-            onClick={() => handleSelectChange("")}
+      {isOpen &&
+        createPortal(
+          <div
+            ref={optionsWrapperRef}
+            className={`fixed drop-shadow-md rounded-lg bg-white z-10`}
+            style={{
+              top: toggleButtonRect?.bottom ?? 0,
+              left: toggleButtonRect?.left ?? 0,
+              width: toggleButtonRect?.width ?? 0,
+            }}
           >
-            Не выбрано
-          </button>
-          {options.map((option) => {
-            return (
-              <button
-                key={option.value}
-                className="flex w-full py-2 px-4 cursor-pointer hover:bg-gray-200 transition hover:text-orange"
-                onClick={() => handleSelectChange(option.value)}
-              >
-                {option.label}
-              </button>
-            );
-          })}
-        </div>
-      )}
+            <button
+              className="flex w-full py-2 px-4 cursor-pointer hover:bg-gray-200 transition hover:text-orange"
+              onClick={() => handleSelectChange("")}
+              ref={firstButtonRef}
+            >
+              Не выбрано
+            </button>
+            {options.map((option) => {
+              return (
+                <button
+                  key={option.value}
+                  className="flex w-full py-2 px-4 cursor-pointer hover:bg-gray-200 transition hover:text-orange"
+                  onClick={() => handleSelectChange(option.value)}
+                >
+                  {option.label}
+                </button>
+              );
+            })}
+          </div>,
+          document.body
+        )}
     </div>
   );
 };
