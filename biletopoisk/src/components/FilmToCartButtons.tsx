@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 
 import { IMovie } from "@/lib/api";
 import { useStore } from "@/lib/store";
-import { Modal } from "./Modal";
+import { Modal } from "@/components/Modal";
 
 export const FilmToCartButtons = ({
   movie,

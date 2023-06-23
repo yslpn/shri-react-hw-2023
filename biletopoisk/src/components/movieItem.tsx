@@ -1,8 +1,10 @@
-import { IMovie } from "@/lib/api";
-import { genresMap } from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
-import { FilmToCartButtons } from "./FilmToCartButtons";
+
+import { IMovie } from "@/lib/api";
+import { genresMap } from "@/lib/constants";
+
+import { FilmToCartButtons } from "@/components/FilmToCartButtons";
 
 export const MovieItem = ({
   movie,

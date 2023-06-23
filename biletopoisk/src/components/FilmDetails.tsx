@@ -6,8 +6,8 @@ import { useQuery } from "@tanstack/react-query";
 
 import { getMovieRequest } from "@/lib/api";
 import { genresMap } from "@/lib/constants";
-import { Loader } from "./Loader";
-import { FilmToCartButtons } from "./FilmToCartButtons";
+import { Loader } from "@/components/Loader";
+import { FilmToCartButtons } from "@/components/FilmToCartButtons";
 
 function FilmDetails({ filmId }: { filmId: string }) {
   const movie = useQuery([filmId, "movie"], getMovieRequest);
