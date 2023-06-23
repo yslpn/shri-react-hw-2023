@@ -9,6 +9,7 @@ import { genres, genresMap } from "@/lib/constants";
 import { TextInput } from "@/components/TextInput";
 import { Select } from "@/components/Select";
 import { MovieItems } from "@/components/MovieItems";
+import { Loader } from "@/components/Loader";
 
 export default function Home() {
   const [filter, setFilter] = useState({
@@ -119,7 +120,9 @@ export default function Home() {
               </div>
             </>
           ) : (
-            <div className="text-3xl">Загрузка фильтров...</div>
+            <div className="text-3xl">
+              <Loader text="Загрузка фильтров" />
+            </div>
           )}
         </div>
       </div>
@@ -128,7 +131,9 @@ export default function Home() {
           <MovieItems movies={filteredMovies} />
         ) : (
           <div className="flex flex-col p-6 bg-white rounded-lg">
-            <div className="text-3xl">Загрузка фильмов...</div>
+            <div className="text-3xl">
+              <Loader text="Загрузка фильмов" />
+            </div>
           </div>
         )}
       </div>

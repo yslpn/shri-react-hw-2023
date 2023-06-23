@@ -1,9 +1,10 @@
 "use client";
 
 import React from "react";
-import { Comment } from "@/components/Comment";
 import { useQuery } from "@tanstack/react-query";
 import { getCommentsForMovie } from "@/lib/api";
+import { Comment } from "@/components/Comment";
+import { Loader } from "@/components/Loader";
 
 function Comments({ filmId }: { filmId: string }) {
   const comments = useQuery([filmId, "comments"], getCommentsForMovie);
@@ -16,7 +17,9 @@ function Comments({ filmId }: { filmId: string }) {
         })
       ) : (
         <div className="flex flex-col p-6 bg-white rounded-lg">
-          <div className="text-3xl">Загрузка комментариев...</div>
+          <div className="text-3xl">
+            <Loader text="Загрузка комментариев" />
+          </div>
         </div>
       )}
     </div>

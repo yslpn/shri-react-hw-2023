@@ -1,11 +1,13 @@
 "use client";
 
-import { getMovieRequest } from "@/lib/api";
-import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import Image from "next/image";
-import { FilmToCartButtons } from "./FilmToCartButtons";
+import { useQuery } from "@tanstack/react-query";
+
+import { getMovieRequest } from "@/lib/api";
 import { genresMap } from "@/lib/constants";
+import { Loader } from "./Loader";
+import { FilmToCartButtons } from "./FilmToCartButtons";
 
 function FilmDetails({ filmId }: { filmId: string }) {
   const movie = useQuery([filmId, "movie"], getMovieRequest);
@@ -50,7 +52,9 @@ function FilmDetails({ filmId }: { filmId: string }) {
             </div>
           </>
         ) : (
-          <div className="text-3xl">Загрузка данных фильма...</div>
+          <div className="text-3xl">
+            <Loader text="Загрузка данных фильма" />
+          </div>
         )}
       </section>
     </div>
