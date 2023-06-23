@@ -18,7 +18,7 @@ function FilmDetails({ filmId }: { filmId: string }) {
         {movie.isSuccess ? (
           <>
             <Image
-              className="w-96 rounded-lg"
+              className="w-[400px] h-[500px] object-cover rounded-lg"
               src={movie.data.posterUrl}
               alt="постер"
               height={500}
