@@ -20,7 +20,7 @@ function FilmDetails({ filmId }: { filmId: string }) {
             <Image
               className="w-[400px] h-[500px] object-cover rounded-lg"
               src={movie.data.posterUrl}
-              alt="постер"
+              alt={`Постер фильма ${movie.data.title}`}
               height={500}
               width={400}
               priority={true}
