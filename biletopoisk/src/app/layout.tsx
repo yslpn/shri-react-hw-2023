@@ -34,7 +34,7 @@ export default function RootLayout({
             >
               Билетопоиск
             </Link>
-            <Link className="flex items-center gap-2 hover:brightness-90" href="/cart">
+            <Link className="flex items-center gap-2 hover:brightness-90" href="/cart" aria-label="Корзина">
               <Counter />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
