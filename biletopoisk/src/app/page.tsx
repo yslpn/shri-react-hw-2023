@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import { getCinemasRequest, getMoviesRequest } from "@/lib/api";
@@ -18,6 +18,18 @@ export default function Home() {
     genre: "",
   });
 
+  const [debouncedFilter, setDebouncedFilter] = useState(filter);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedFilter(filter);
+    }, 500);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [filter]);
+
   const handleFilterChange = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
       const key = event.target.name;
@@ -34,7 +46,7 @@ export default function Home() {
   );
 
   const movies = useQuery({
-    queryKey: [filter.cinema, "movies"],
+    queryKey: [debouncedFilter.cinema, "movies"],
     queryFn: getMoviesRequest,
   });
 
@@ -65,22 +77,22 @@ export default function Home() {
     () =>
       movies.data
         ?.filter((movie) => {
-          if (filter.genre) {
-            return filter.genre === movie.genre;
+          if (debouncedFilter.genre) {
+            return debouncedFilter.genre === movie.genre;
           }
 
           return true;
         })
         .filter((movie) => {
-          if (filter.name) {
+          if (debouncedFilter.name) {
             return movie.title
               .toLowerCase()
-              .includes(filter.name.toLowerCase());
+              .includes(debouncedFilter.name.toLowerCase());
           }
 
           return true;
         }),
-    [movies.data, filter.genre, filter.name]
+    [movies.data, debouncedFilter.genre, debouncedFilter.name]
   );
 
   return (
