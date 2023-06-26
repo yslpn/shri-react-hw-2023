@@ -161,7 +161,7 @@ export const Select = memo(
                 );
               })}
             </div>,
-            document.body
+            document.getElementById("dropdown-root")!
           )}
       </>
     );

@@ -24,9 +24,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ru">
-      <body className={`${roboto.className} flex flex-col min-h-screen`}>
-        <Providers>
+    <Providers>
+      <html lang="ru">
+        <body className={`${roboto.className} flex flex-col min-h-screen`}>
           <nav className="flex justify-between items-center pl-8 pr-8 min-h-[5rem] bg-gray-dark text-white sticky top-0">
             <Link
               href="/"
@@ -34,7 +34,11 @@ export default function RootLayout({
             >
               Билетопоиск
             </Link>
-            <Link className="flex items-center gap-2 hover:brightness-90" href="/cart" aria-label="Корзина">
+            <Link
+              className="flex items-center gap-2 hover:brightness-90"
+              href="/cart"
+              aria-label="Корзина"
+            >
               <Counter />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -60,8 +64,9 @@ export default function RootLayout({
               О нас
             </Link>
           </footer>
-        </Providers>
-      </body>
-    </html>
+          <div id="dropdown-root"></div>
+        </body>
+      </html>
+    </Providers>
   );
 }
